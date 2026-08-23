@@ -1,5 +1,5 @@
 # train_trie.py
-from utils import iter_smiles
+from experiments.utils import iter_smiles
 import trie_funcs as tf
 import time, os
 

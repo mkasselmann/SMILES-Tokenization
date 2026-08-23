@@ -1,5 +1,5 @@
 # train_ape.py
-from utils import iter_smiles
+from experiments.utils import iter_smiles
 from ape_tokenizer import APETokenizer
 import time, os
 

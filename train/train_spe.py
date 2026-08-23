@@ -1,7 +1,7 @@
 import codecs
 import pyarrow.dataset as ds, pyarrow as pa, pyarrow.parquet as pq, os
 from SmilesPE.learner import *
-from utils import iter_smiles
+from experiments.utils import iter_smiles
 import time
 
 SLICE = "../data/chebi_smiles.parquet"
