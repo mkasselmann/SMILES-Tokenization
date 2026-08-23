@@ -1,9 +1,9 @@
 # train_trie.py
 from experiments.utils import iter_smiles
-import trie_funcs as tf
+import train.trie_funcs as tf
 import time, os
 
-SLICE = "../data/chebi_smiles.parquet"
+SLICE = "data/chebi_smiles.parquet"
 OUT = 'trie_chebi.pkl'
 
 def main():

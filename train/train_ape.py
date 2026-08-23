@@ -1,9 +1,9 @@
 # train_ape.py
 from experiments.utils import iter_smiles
-from ape_tokenizer import APETokenizer
+from train.ape_tokenizer import APETokenizer
 import time, os
 
-SLICE = "../data/chebi_smiles.parquet"        # use make_slice.py once
+SLICE = "data/chebi_smiles.parquet"        # use make_slice.py once
 OUT   = "ape_chebi"                    # folder will be created
 
 def main():

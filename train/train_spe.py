@@ -4,7 +4,7 @@ from SmilesPE.learner import *
 from experiments.utils import iter_smiles
 import time
 
-SLICE = "../data/chebi_smiles.parquet"
+SLICE = "data/chebi_smiles.parquet"
 OUT = 'spe_chebi.txt'
 
 SMILES = list(iter_smiles(SLICE))
