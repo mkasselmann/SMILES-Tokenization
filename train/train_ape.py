@@ -3,8 +3,8 @@ from utils import iter_smiles
 from ape_tokenizer import APETokenizer
 import time, os
 
-SLICE = "../data/peptide/peptides_1M.parquet"          # use make_slice.py once
-OUT   = "ape_peptide"                    # folder will be created
+SLICE = "../data/chebi_smiles.parquet"        # use make_slice.py once
+OUT   = "ape_chebi"                    # folder will be created
 
 def main():
     os.makedirs(OUT, exist_ok=True)
