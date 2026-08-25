@@ -6,7 +6,7 @@ import time
 from experiments.utils import iter_smiles
 import train.trie_funcs as tf
 
-SLICE = "chebi_smiles.parquet"
+SLICE = "data/chebi_smiles.parquet"
 OUT_DIR = "ttg_vocab" 
 
 
