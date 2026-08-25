@@ -1,4 +1,4 @@
-# train_trie.py
+# train/train_ttg.py
 import argparse
 import os
 import time
@@ -6,15 +6,14 @@ import time
 from experiments.utils import iter_smiles
 import train.trie_funcs as tf
 
-SLICE = "data/chebi_smiles.parquet"
-OUT_DIR = "ttg_vocab" 
+SLICE = "chebi_smiles.parquet"
+OUT_DIR = "ttg_vocab"
 
 
 def _make_out_name(k: int, freq: int, ent: float, out_dir: str = OUT_DIR) -> str:
     """
-    Produce a file name that encodes the hyper-parameters, e.g.
-    ttg_vocab/ttg_chebi_K8_F4_H2p0.pkl
-    (the dot in entropy is replaced by “p” to keep the name shell-safe).
+    Erstellt den Ausgabepfad und stellt sicher, dass das Verzeichnis existiert.
+    Beispiel: ttg_vocab/ttg_chebi_K8_F4_H2p0.pkl
     """
     os.makedirs(out_dir, exist_ok=True)
     ent_str = str(ent).replace(".", "p")
@@ -23,13 +22,8 @@ def _make_out_name(k: int, freq: int, ent: float, out_dir: str = OUT_DIR) -> str
 
 def run_ttg(k: int = 8, freq_thr: int = 4, entropy_thr: float = 2.0, out_dir: str = OUT_DIR) -> str:
     """
-    Build a TTG-guided compressor with the given hyper-parameters.
-    Returns the path of the saved pickle.
-
-    Example
-    -------
-    >>> run_ttg(k=10, freq_thr=3, entropy_thr=1.5)
-    'ttg_vocab/ttg_chebi_K10_F3_H1p5.pkl'
+    Baut den TTG-gestützten Trie-Kompressor und speichert die Datei ab.
+    Gibt den Pfad der gespeicherten .pkl Datei zurück.
     """
     out_path = _make_out_name(k, freq_thr, entropy_thr, out_dir=out_dir)
 
@@ -47,12 +41,9 @@ def run_ttg(k: int = 8, freq_thr: int = 4, entropy_thr: float = 2.0, out_dir: st
     )
 
     tf.save_state(state, out_path)
-    print(f"✔ Trie saved → {out_path}  ({time.time() - t0:.1f}s)")
+    print(f"✔ TTG Trie saved → {out_path}  ({time.time() - t0:.1f}s)")
 
-    # trie_fert, trie_avg, trie_var, trie_ent = compute_trie_metrics(SLICE, state)
-    # print(f"✔ Trie Metrics Computed → {out_path}  ({time.time() - t0:.1f}s)")
-
-    return out_path  # , trie_fert, trie_avg, trie_var, trie_ent
+    return out_path
 
 
 def parse_args():
@@ -81,7 +72,7 @@ def parse_args():
         "-o", "--out_dir",
         type=str,
         default=OUT_DIR,
-        help=f"Output directory (default: {OUT_DIR})",
+        help=f"Output directory to save generated files (default: {OUT_DIR})",
     )
     return parser.parse_args()
 
