@@ -3,11 +3,19 @@ import sys
 import time
 import argparse
 
-# Parameter für Trie: (K, freq_thr)
+# Parameter für Standard-Trie: (k, freq_thr)
 TRIE_GRID = [
     {"k": k, "freq_thr": f}
     for k in [6, 8, 10, 12]
     for f in [2, 4, 8]
+]
+
+# Parameter für TTG-Trie: (k, freq_thr, entropy_thr)
+TTG_GRID = [
+    {"k": k, "freq_thr": f, "entropy_thr": e}
+    for k in [6, 8, 10, 12]
+    for f in [2, 4, 8]
+    for e in [1.0, 1.5, 2.0, 2.5]
 ]
 
 # Parameter für SPE: (num_symbols, min_frequency, augmentation)
@@ -27,17 +35,17 @@ APE_GRID = [
 
 def run_command(cmd, dry_run=False):
     """Führt ein Python-Modul im Terminal aus und misst die Zeit."""
-    print(f"\n▶ Ausführen: {' '.join(cmd)}")
+    print(f"\n Ausführen: {' '.join(cmd)}")
     if dry_run:
         return True
     
     t0 = time.time()
     try:
         subprocess.run(cmd, check=True)
-        print(f"Fertig in {time.time() - t0:.1f}s")
+        print(f" Fertig in {time.time() - t0:.1f}s")
         return True
     except subprocess.CalledProcessError as e:
-        print(f"FEHLER bei Ausführung ({e})")
+        print(f" FEHLER bei Ausführung ({e})")
         return False
     except KeyboardInterrupt:
         print("\n\nAbbruch durch Benutzer (Ctrl+C).")
@@ -45,13 +53,26 @@ def run_command(cmd, dry_run=False):
 
 def run_trie_experiments(dry_run=False):
     print("=" * 60)
-    print(f" Starte TRIE-Experimente ({len(TRIE_GRID)} Konfigurationen)")
+    print(f" Starte Standard-TRIE-Experimente ({len(TRIE_GRID)} Konfigurationen)")
     print("=" * 60)
     for params in TRIE_GRID:
         cmd = [
             sys.executable, "-m", "train.train_trie",
             "-k", str(params["k"]),
             "-f", str(params["freq_thr"])
+        ]
+        run_command(cmd, dry_run=dry_run)
+
+def run_ttg_experiments(dry_run=False):
+    print("=" * 60)
+    print(f" Starte TTG-Experimente ({len(TTG_GRID)} Konfigurationen)")
+    print("=" * 60)
+    for params in TTG_GRID:
+        cmd = [
+            sys.executable, "-m", "train.train_ttg",
+            "-k", str(params["k"]),
+            "-f", str(params["freq_thr"]),
+            "-e", str(params["entropy_thr"])
         ]
         run_command(cmd, dry_run=dry_run)
 
@@ -84,8 +105,8 @@ def main():
     parser = argparse.ArgumentParser(description="Automatische Trainingsläufe mit variierenden Parametern.")
     parser.add_argument(
         "--only", 
-        choices=["trie", "spe", "ape"], 
-        help="Nur einen bestimmten Tokenizer trainieren (Standard: alle drei nacheinander)"
+        choices=["trie", "ttg", "spe", "ape"], 
+        help="Nur einen bestimmten Tokenizer trainieren (Standard: alle vier nacheinander)"
     )
     parser.add_argument(
         "--dry-run", 
@@ -98,6 +119,9 @@ def main():
 
     if args.only == "trie" or args.only is None:
         run_trie_experiments(dry_run=args.dry_run)
+
+    if args.only == "ttg" or args.only is None:
+        run_ttg_experiments(dry_run=args.dry_run)
         
     if args.only == "spe" or args.only is None:
         run_spe_experiments(dry_run=args.dry_run)
