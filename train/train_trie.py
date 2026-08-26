@@ -5,7 +5,7 @@ import os
 from experiments.utils import iter_smiles
 import train.trie_funcs as tf
 
-SLICE = "data/chebi_smiles.parquet"
+SLICE = "data/pubchem_100K.parquet"
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Build and save a Trie compressor.")
@@ -25,14 +25,14 @@ def parse_args():
         "-o", "--out", 
         type=str, 
         default=None, 
-        help="Output path for the .pkl file (default: trie_chebi_<K>_<FREQ_THR>.pkl)"
+        help="Output path for the .pkl file (default: trie_pubchem_<K>_<FREQ_THR>.pkl)"
     )
     return parser.parse_args()
 
 def main():
     args = parse_args()
     
-    out_path = args.out if args.out else f"trie_chebi_{args.k}_{args.freq_thr}.pkl"
+    out_path = args.out if args.out else f"trie_pubchem_{args.k}_{args.freq_thr}.pkl"
 
     print(f"Building trie compressor (K={args.k}, freq_thr={args.freq_thr}) …")
     t0 = time.time()

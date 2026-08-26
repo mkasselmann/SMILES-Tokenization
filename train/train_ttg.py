@@ -6,18 +6,18 @@ import time
 from experiments.utils import iter_smiles
 import train.trie_funcs as tf
 
-SLICE = "data/chebi_smiles.parquet"
+SLICE = "data/pubchem_100K.parquet"
 OUT_DIR = "ttg_vocab"
 
 
 def _make_out_name(k: int, freq: int, ent: float, out_dir: str = OUT_DIR) -> str:
     """
     Erstellt den Ausgabepfad und stellt sicher, dass das Verzeichnis existiert.
-    Beispiel: ttg_vocab/ttg_chebi_K8_F4_H2p0.pkl
+    Beispiel: ttg_vocab/ttg_pubchem_K8_F4_H2p0.pkl
     """
     os.makedirs(out_dir, exist_ok=True)
     ent_str = str(ent).replace(".", "p")
-    return os.path.join(out_dir, f"ttg_chebi_K{k}_F{freq}_H{ent_str}.pkl")
+    return os.path.join(out_dir, f"ttg_pubchem_K{k}_F{freq}_H{ent_str}.pkl")
 
 
 def run_ttg(k: int = 8, freq_thr: int = 4, entropy_thr: float = 2.0, out_dir: str = OUT_DIR) -> str:
