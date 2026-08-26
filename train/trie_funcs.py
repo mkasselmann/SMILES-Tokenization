@@ -1,4 +1,4 @@
-import re, json, pickle, collections, math
+import re, json, pickle, collections, math, os
 from collections import defaultdict
 from typing import List, Tuple, Iterator
 
@@ -183,6 +183,12 @@ class TokenTransitionGraph:
 # helper function to save TTG probabilities
 def save_sparse_prob_matrix(ttg: TokenTransitionGraph, matrix_fname: str, keys_fname: str) -> None:
     ttg._compute_transition_probs()
+
+    # Verzeichnisse anlegen, falls sie noch nicht existieren
+    if os.path.dirname(matrix_fname):
+        os.makedirs(os.path.dirname(matrix_fname), exist_ok=True)
+    if os.path.dirname(keys_fname):
+        os.makedirs(os.path.dirname(keys_fname), exist_ok=True)
 
     with open(matrix_fname, "wb") as f:
         pickle.dump(ttg._transition_probs, f)
