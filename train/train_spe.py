@@ -10,7 +10,7 @@ from rdkit import Chem, RDLogger
 from SmilesPE.learner import learn_SPE
 from experiments.utils import iter_smiles
 
-SLICE = "data/pubchem_100K.parquet"
+SLICE = "data/chebi_smiles.parquet"
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train and save a SmilesPE (SPE) model.")
@@ -36,14 +36,14 @@ def parse_args():
         "-o", "--out", 
         type=str, 
         default=None, 
-        help="Output path for the SPE file (default: spe_pubchem_<num_symbols>_<min_frequency>_<augmentation>.txt)"
+        help="Output path for the SPE file (default: spe_chebi_<num_symbols>_<min_frequency>_<augmentation>.txt)"
     )
     return parser.parse_args()
 
 def main():
     args = parse_args()
     
-    out_path = args.out if args.out else f"spe_pubchem_{args.num_symbols}_{args.min_frequency}_{args.augmentation}.txt"
+    out_path = args.out if args.out else f"spe_chebi_{args.num_symbols}_{args.min_frequency}_{args.augmentation}.txt"
 
     RDLogger.DisableLog('rdApp.*')
     print("Loading SMILES …")

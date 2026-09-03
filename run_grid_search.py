@@ -21,9 +21,9 @@ TTG_GRID = [
 # Parameter für SPE: (num_symbols, min_frequency, augmentation)
 SPE_GRID = [
     {"num_symbols": n, "min_frequency": m, "augmentation": a}
-    for n in [5000, 10000, 20000]
-    for m in [500, 1000]
-    for a in [0]
+    for n in [2500, 30000, 50000]
+    for m in [100, 250, 2000]
+    for a in [0, 1]
 ]
 
 # Parameter für APE: (max_vocab_size, min_freq_for_merge)
