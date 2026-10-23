@@ -10,7 +10,7 @@ from rdkit import Chem, RDLogger
 from SmilesPE.learner import learn_SPE
 from experiments.utils import iter_smiles
 
-SLICE = "data/chebi_smiles.parquet"
+SLICE = "data/pubchem_100K.parquet"
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train and save a SmilesPE (SPE) model.")

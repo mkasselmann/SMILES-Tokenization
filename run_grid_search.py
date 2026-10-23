@@ -6,31 +6,31 @@ import argparse
 # Parameter für Standard-Trie: (k, freq_thr)
 TRIE_GRID = [
     {"k": k, "freq_thr": f}
-    for k in [6, 8, 10, 12]
-    for f in [2, 4, 8]
+    for k in [8]
+    for f in [4]
 ]
 
 # Parameter für TTG-Trie: (k, freq_thr, entropy_thr)
 TTG_GRID = [
     {"k": k, "freq_thr": f, "entropy_thr": e}
-    for k in [6, 8, 10, 12]
-    for f in [2, 4, 8]
-    for e in [1.0, 1.5, 2.0, 2.5]
+    for k in [8]
+    for f in [4]
+    for e in [2.0]
 ]
 
 # Parameter für SPE: (num_symbols, min_frequency, augmentation)
 SPE_GRID = [
     {"num_symbols": n, "min_frequency": m, "augmentation": a}
-    for n in [2500, 30000, 50000]
-    for m in [100, 250, 2000]
-    for a in [0, 1]
+    for n in [30000]
+    for m in [2000]
+    for a in [1]
 ]
 
 # Parameter für APE: (max_vocab_size, min_freq_for_merge)
 APE_GRID = [
     {"max_vocab_size": v, "min_freq_for_merge": m}
-    for v in [500, 1000, 2000]
-    for m in [400, 800]
+    for v in [8000]
+    for m in [800]
 ]
 
 def run_command(cmd, dry_run=False):
