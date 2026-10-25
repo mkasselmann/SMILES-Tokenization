@@ -5,7 +5,7 @@ import os
 from experiments.utils import iter_smiles
 import train.trie_funcs as tf
 
-SLICE = "data/chembl_train_100K.parquet"
+SLICE = "data/chebi_smiles.parquet"
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Build and save a Trie compressor.")
@@ -32,7 +32,7 @@ def parse_args():
 def main():
     args = parse_args()
     
-    out_path = args.out if args.out else f"trie_chembl_{args.k}_{args.freq_thr}.pkl"
+    out_path = args.out if args.out else f"trie_chebi_{args.k}_{args.freq_thr}.pkl"
 
     print(f"Building trie compressor (K={args.k}, freq_thr={args.freq_thr}) …")
     t0 = time.time()

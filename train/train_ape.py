@@ -5,7 +5,7 @@ import time
 from experiments.utils import iter_smiles
 from train.ape_tokenizer import APETokenizer
 
-SLICE = "data/chembl_train_100K.parquet"  # use make_slice.py once
+SLICE = "data/chebi_smiles.parquet"  # use make_slice.py once
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train and save an APE Tokenizer.")
@@ -32,7 +32,7 @@ def parse_args():
 def main():
     args = parse_args()
 
-    out_dir = args.out if args.out else f"ape_chembl_{args.max_vocab_size}_{args.min_freq_for_merge}"
+    out_dir = args.out if args.out else f"ape_chebi_{args.max_vocab_size}_{args.min_freq_for_merge}"
     os.makedirs(out_dir, exist_ok=True)
 
     ape = APETokenizer()

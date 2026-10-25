@@ -6,7 +6,7 @@ import time
 from experiments.utils import iter_smiles
 import train.trie_funcs as tf
 
-SLICE = "data/chembl_train_100K.parquet"
+SLICE = "data/chebi_smiles.parquet"
 OUT_DIR = "ttg_vocab"
 
 
@@ -17,7 +17,7 @@ def _make_out_name(k: int, freq: int, ent: float, out_dir: str = OUT_DIR) -> str
     """
     os.makedirs(out_dir, exist_ok=True)
     ent_str = str(ent).replace(".", "p")
-    return os.path.join(out_dir, f"ttg_chembl_K{k}_F{freq}_H{ent_str}.pkl")
+    return os.path.join(out_dir, f"ttg_chebi_K{k}_F{freq}_H{ent_str}.pkl")
 
 
 def run_ttg(k: int = 8, freq_thr: int = 4, entropy_thr: float = 2.0, out_dir: str = OUT_DIR) -> str:
